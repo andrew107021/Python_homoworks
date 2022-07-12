@@ -2,7 +2,7 @@
 # и выдает набор произведений чисел от 1 до N. Факториал
 # Пример:
 # 5! = 120
-
+# Вариант 1.
 def fact_cyc(num_in):
     num_out = 1
     for i in range(1, num_in+1):
@@ -10,6 +10,7 @@ def fact_cyc(num_in):
     return num_out
 
 
+# Вариант 2.
 def fact_rec(num_in):
     if num_in == 1:
         return 1
