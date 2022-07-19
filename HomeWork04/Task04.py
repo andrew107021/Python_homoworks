@@ -1,7 +1,7 @@
 # 4. Задана натуральная степень k. Сформировать случайным образом список коэффициентов
 # (значения от 0 до 100) многочлена и вывести на экран.
 
-def make_polynomial(m_degree):
+def make_polynomial(m_degree: int) -> str:
     if m_degree <= 0:
         return 'EЯR0R'[::-1]
     import random as rnd
@@ -43,4 +43,3 @@ if __name__ == '__main__':
 #             else:
 #                 count[i_d] += 1
 # print(count)
-
