@@ -13,7 +13,8 @@ from random import randint
 CANDIES_ON_TABLE = 2021
 # CANDIES_ON_TABLE = 121    # testing value
 AMT_MAX = 28
-
+names = tuple()
+mode = ''
 
 def game_play() -> None:
     """basic logic"""
@@ -62,31 +63,36 @@ def human(pers: int) -> int:
     return int(input(f'Сколько конфет берёте (0 min, 28 max), {names[pers]}? '))
 
 
-print(
+def intro():
+    print(
+        '''
+        Играем в конфеты. 
+        Полиси: можно взять от 0 до 28 штук.
+        Если взять меньше 0 (интересный вариант...) или больше 28,
+        считается что взял 28. Поехали.    
     '''
-    Играем в конфеты. 
-    Полиси: можно взять от 0 до 28 штук.
-    Если взять меньше 0 (интересный вариант...) или больше 28,
-    считается что взял 28. Поехали.    
-'''
-    )
+        )
 
-flag_0 = 1
-mode = ''
-while flag_0:
-    mode = input('Играем с компьютером или на двоих? (1/2/exit): ')
-    if mode == 'exit':
-        print('Выход')
-        raise SystemExit
-    elif mode not in ('1', '2'):
-        print('Ошибка ввода.')
+    flag_0 = 1
+    global mode
+    global names
+    while flag_0:
+        mode = input('Играем с компьютером или на двоих? (1/2/exit): ')
+        if mode == 'exit':
+            print('Выход')
+            raise SystemExit
+        elif mode not in ('1', '2'):
+            print('Ошибка ввода.')
+        else:
+            flag_0 = 0
+
+    if mode == '1':
+        names = ('An artificial one', input('Введите имя: '))
     else:
-        flag_0 = 0
+        names = (input('Введите имя 1-го игрока: '), input('Введите имя 2-го игрока: '))
+
+    game_play()
 
 
-if mode == '1':
-    names = ('An artificial one', input('Введите имя: '))
-else:
-    names = (input('Введите имя 1-го игрока: '), input('Введите имя 1-го игрока: '))
+intro()
 
-game_play()
