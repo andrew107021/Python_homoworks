@@ -10,31 +10,12 @@
 #
 from random import randint
 
-CANDIES_ON_TABLE = 2021
-# CANDIES_ON_TABLE = 121    # testing value
+# CANDIES_ON_TABLE = 2021
+CANDIES_ON_TABLE = 121    # testing value
 AMT_MAX = 28
 names = tuple()
 mode = ''
 candies = 0
-
-
-def player(pl_name):
-    """human capture"""
-    candie_bank = 0
-    name = pl_name
-
-    def get_name():
-        return name
-
-    def taker():
-        global candies
-        nonlocal candie_bank
-        take_amt = int(input(f'Сколько конфет берёте (0 min, 28 max), {name}? '))
-        if take_amt > AMT_MAX or take_amt < 0:
-            take_amt = AMT_MAX
-        candie_bank += take_amt
-        return take_amt
-    return taker, get_name  # return functions: taker -> candies amount, get_name -> player name
 
 
 def intro2():
@@ -85,8 +66,10 @@ def game_play2() -> None:
 
         if candies <= 28:
             print(f'{names[person][1]()} забирает {candies} конфет.')
+            print(f'У {names[person][1]()} {names[person][2]()}')
         else:
             print(f'{names[person][1]()} берёт {num_take} конфет.')
+            print(f'У {names[person][1]()} {names[person][2]()}')
         candies -= num_take
         if candies <= 0:
             print(f'{names[person][1]()} победил')
@@ -96,7 +79,15 @@ def game_play2() -> None:
 
 def ai_player2() -> tuple:
     """primitive AI"""
+    candie_bank = 0
     name = 'An Artificial One II'
+
+    def set_c_amt(c_amt):
+        nonlocal candie_bank
+        candie_bank += c_amt
+
+    def get_c_amt():
+        return f'Конфет в банке: {candie_bank}'
 
     def get_name():
         return name
@@ -104,12 +95,37 @@ def ai_player2() -> tuple:
     def taker():
         global candies
         if candies < AMT_MAX:
+            set_c_amt(candies)
             return candies
         elif candies - AMT_MAX > 1 and candies < AMT_MAX * 2:
-            return candies - 27
+            set_c_amt(candies % (AMT_MAX + 1))
+            return candies % (AMT_MAX + 1)
         else:
+            set_c_amt(AMT_MAX)
             return AMT_MAX
-    return taker, get_name
+    return taker, get_name, get_c_amt
+
+
+def player(pl_name):
+    """human capture"""
+    candie_bank = 0
+    name = pl_name
+
+    def get_name():
+        return name
+
+    def get_c_amt():
+        return f'Конфет в банке: {candie_bank}'
+
+    def taker():
+        global candies
+        nonlocal candie_bank
+        take_amt = int(input(f'Сколько конфет берёте (0 min, 28 max), {name}? '))
+        if take_amt > AMT_MAX or take_amt < 0:
+            take_amt = AMT_MAX
+        candie_bank += take_amt
+        return take_amt
+    return taker, get_name, get_c_amt   # return functions:  candies amount, player name, candies in bank
 
 
 intro2()
