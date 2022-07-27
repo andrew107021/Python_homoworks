@@ -4,3 +4,4 @@
 *.jpeg
 *.txt
 __pycache__
+!*Snimok_ekrana*.png
