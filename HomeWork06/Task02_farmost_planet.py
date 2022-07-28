@@ -6,7 +6,7 @@ orbits = [(1, 3), (2.5, 10), (7, 2), (6, 6), (4, 3)]
 
 
 def find_farthest_orbit(ell_lst: list) -> tuple:
-    out = sorted(ell_lst, key=lambda ell: ell[0] * ell[1])
+    out = sorted([x for x in ell_lst if x[0] != x[1]], key=lambda ell: ell[0] * ell[1])
     return out[-1]
 
 
