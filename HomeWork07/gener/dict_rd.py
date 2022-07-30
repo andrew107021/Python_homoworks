@@ -3,12 +3,12 @@ import os
 
 # base_path = '/large/data2/Home/Andrew/Documents/geekbrains/Python_20220705/Homeworks'
 base_path = os.path.abspath(os.curdir)
-this_path = os.path.join(base_path) + '/testing.txt'
+this_path = os.path.join(base_path) + '/../phn_bk3.txt'
 
 while True:
     print('Searching in: \n' + this_path)
     try:
-        with open(this_path, 'r') as in_fl:
+        with open(this_path, 'r', encoding='utf-8') as in_fl:
             data = in_fl.read()
             break
     except FileNotFoundError as err:

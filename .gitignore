@@ -3,5 +3,6 @@
 *.jpg
 *.jpeg
 *.txt
+*.log
 __pycache__
 !*Snimok_ekrana*.png

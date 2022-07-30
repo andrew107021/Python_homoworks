@@ -10,14 +10,26 @@ def menu() -> str:
     return input('Enter a command: '.rjust(29)).lower()
 
 
-def display(line: [str, list]) -> None:
+def display(line: [str, dict]) -> None:
     if isinstance(line, str):
         print(f'\n{line.rjust(100)}\n')
-    elif isinstance(line, list):
-        print(*line)
+    elif isinstance(line, dict):
+        # print(*line)
+        dict_print(line)
     else:
         print('Unknown format =(')
 
+
+def dict_print(my_storage: dict) -> None:
+    count = 0
+    # tmp = []
+    if my_storage:
+        for i_key, i_val in my_storage.items():
+            for unit in i_val:
+                count += 1
+                print(*unit.get('Name'), *unit.get('Phone'), unit.get('Dsc'))
+    else:
+        print('Empty storage')
 
 '''
 def print_all() -> None:
