@@ -37,10 +37,10 @@ def get_all() -> dict:
     logger.logger(__name__ + 'transferring the whole data.')
     return storage
 
-
-def seeker(entry: str) -> str:
-    logger.logger(__name__ + f' searching "{entry}"' + ' this module is still under construction.')
-    return 'Search subsystem is under construction'
+#
+# def seeker(entry: str) -> str:
+#     logger.logger(__name__ + f' searching "{entry}"' + ' this module is still under construction.')
+#     return 'Search subsystem is under construction'
 
 
 # Command Add section
@@ -95,6 +95,49 @@ def dump_json(file_name: str) -> None:
             json.dump(storage, out_fl, indent=4, ensure_ascii=False, sort_keys=True)  # ensure_ascii=False for cyrillic in file
     except Exception as exc:
         print(exc)
+
+
+def seeker(person: str, key='show') -> [str, dict, list]:
+    """
+    The most basic searching mechanism.
+    :param person:
+    :param key:
+    :return:
+    """
+    response = 'Not found'
+    person = person.split(' ')
+
+    def inner_seek(in_key: str):
+        nonlocal response
+        for entry in storage[in_key]:
+            # print('seek lvl 2', person)
+            if person[0] in entry['Name']:
+                if len(person) == 3 and person[1] in entry['Name'] and person[2] in entry['Name']:
+                    response.append(entry)
+                elif len(person) == 2 and person[1] in entry['Name']:
+                    # print('seek lvl 2.1.2', person)
+                    # print(*entry['Name'], *entry['Phone'])
+                    response.append(entry)
+                elif len(person) == 1 and person[0] in entry['Name']:
+                    # print('seek lvl 2.1.3', person)
+                    # print(*entry['Name'], *entry['Phone'])
+                    response.append(entry)
+                elif len(person) > 3:
+                    print('seek lvl 2.1.0', end='---> ')
+                    print(*entry['Name'], *entry['Phone'])
+                    response.append(entry)
+        return response
+
+    if person[0][0] in storage.keys():
+        response = ['Found:']
+        inner_seek(person[0][0])
+        if response == ['Found:']:
+            response = 'Nothing found.'
+    return response
+
+
+def remover():
+    return 'Still under construction'
 
 
 '''
