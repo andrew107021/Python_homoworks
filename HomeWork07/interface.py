@@ -22,9 +22,9 @@ def display(line: [str, dict, list]) -> None:
             if isinstance(entry, dict):
                 dict_print(entry)
             else:
-                print('SOMETHING WRONG', entry)     # debugging entry TODO: clear
+                print('SOMETHING WRONG', entry)     # debugging semaphore TODO: clear
     else:
-        print('Unknown format =(')
+        print('Unknown format =(')     # debugging semaphore TODO: clear
 
 
 def dict_print0(my_storage: dict) -> None:      # A rough CRUTCH TODO: fix
