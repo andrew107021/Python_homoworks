@@ -2,6 +2,7 @@
 import interface
 import data_manager
 import logger
+import foreign
 from interface import COMMAND_LST
 
 data_manager.read_book()
@@ -12,11 +13,11 @@ while True:
         logger.logger(f'Command: {command}')
         print('Exiting...'.rjust(22))
         raise SystemExit
-    elif command == COMMAND_LST[0].lower():             # Add person TODO: more tests needed
+    elif command == COMMAND_LST[0].lower():             # Add person
         print('Calling adder...'.rjust(28))
         logger.logger(f'Command: {command}')
         data_manager.adder()
-    elif command == COMMAND_LST[1].lower():             # Search person TODO: more tests needed
+    elif command == COMMAND_LST[1].lower():             # Search person
         print('Calling searcher...'.rjust(31))
         person = input('Input a person: '.rjust(28))
         logger.logger(f'Command: {command}; request: {person}')
@@ -25,10 +26,13 @@ while True:
         print('Calling viewer...'.rjust(29))
         logger.logger(f'Command: {command}')
         interface.display(data_manager.get_all())
-    elif command == COMMAND_LST[3].lower():             # TODO: Export phonebook, still not ready
+    elif command == COMMAND_LST[3].lower():             # Export phonebook txt and csv formats
         print('Calling exporter...'.rjust(31))
         logger.logger(f'Command: {command}')
-        interface.display(data_manager.get_all())
+        interface.display(
+            foreign.exporter(
+                input('Input file name: '),
+                input('Input file type (csv, txt): ')))
     elif command == COMMAND_LST[4].lower():             # TODO: Import phonebook, still in work
         print('Calling importer...'.rjust(31))
         logger.logger(f'Command: {command}')

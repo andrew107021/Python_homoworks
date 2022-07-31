@@ -2,7 +2,6 @@ import json
 import os
 import logger
 
-my_storage = []
 storage = {}
 base_path = os.path.join(os.path.abspath(os.curdir), 'testing.json')
 # think this preset could be placed into a separate configuration file (not really needed at this stage)
