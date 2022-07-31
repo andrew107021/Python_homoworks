@@ -53,19 +53,19 @@ def adder() -> [str, dict]:
     response = '0'
     phone = []
 
-    surname = input('Input surname (Enter to skip): ')
-    name = input('Input name (Enter to skip): ')
-    f_name = input('Input father\'s_name (Enter to skip): ')
+    surname = input('Input surname (Enter to skip): ').replace(' ', '_')
+    name = input('Input name (Enter to skip): ').replace(' ', '_')
+    f_name = input('Input father\'s name (Enter to skip): ').replace(' ', '_')
     if surname or name or f_name:
         response = {'id': time_ns(), 'Name': [item for item in (surname, name, f_name) if item]}
         while True:
             phone_num = input('Input phone number(s) or "end" to finish: ').lower()
             if phone_num == 'end':
                 break
-            elif phone_num.replace('+', '').replace('(', '').replace(')', '').isdigit():
+            elif phone_num.replace('+', '').replace('(', '').replace(')', '').replace('-', '').isdigit():
                 phone.append(phone_num)
             else:
-                print('Wrong input')
+                print('Wrong input.')
         response['Phone'] = phone
         response['Dsc'] = input('Input description: ') or 'No Description'
     print(response)
@@ -89,7 +89,8 @@ def dump_json(file_name: str) -> None:
         print(exc)
 
 
-def seeker(person: str, key: str='show') -> [str, dict, list]:   # TODO: not quite sure key param is needed
+# Command search section
+def seeker(person: str) -> [str, dict, list]:
     """
     The most basic searching mechanism.
     :param person: str
@@ -121,7 +122,7 @@ def seeker(person: str, key: str='show') -> [str, dict, list]:   # TODO: not qui
         inner_seek(person[0][0])
         if response == ['Found:']:
             response = 'Nothing found.'
-    return response     # TOD
+    return response
 
 
 # Remove command section
@@ -187,17 +188,3 @@ def remover(person: str):
                 print('Not exact answer. Deletion cancelled')
     read_book()
     return response
-
-
-'''
-tmp = []
-for i_item in my_storage:
-    if 'Ювеналий' in ' '.join(i_item.get('Name')):
-        print(i_item)
-    tmp.append(f"{i_item.get('Name')[0]:.<20} {' '.join(i_item.get('Phone')):<40}")
-
-count = 0
-for i in sorted(tmp):
-    count += 1
-    print(count, ') ', i, sep='')
-'''

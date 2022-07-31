@@ -31,13 +31,13 @@ while True:
         logger.logger(f'Command: {command}')
         interface.display(
             foreign.exporter(
-                input('Input file name: '),
-                input('Input file type (csv, txt): ')))
+                input('Input file name (no extension needed): '.rjust(51)).replace(' ', '_'),
+                input('Input file type (csv, txt): '.rjust(40)).replace(' ','')))
     elif command == COMMAND_LST[4].lower():             # TODO: Import phonebook, still in work
         print('Calling importer...'.rjust(31))
         logger.logger(f'Command: {command}')
         interface.display(data_manager.get_all())
-    elif command == COMMAND_LST[5].lower():             # TODO: Remove, on testing
+    elif command == COMMAND_LST[5].lower():             # Remove TODO: needs more tests
         print('Calling remover...'.rjust(30))
         logger.logger(f'Command: {command}')
         interface.display(data_manager.remover(input('Input a person: '.rjust(28))))

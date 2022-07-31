@@ -143,7 +143,7 @@ def dump_csv(file_name: str) -> None:
 #         print('WRONG INPUT')
 
 # file_nm = 'phn_bk3'
-file_nm = 'SWOFF_testing.txt'
+file_nm = 'SWOFF_testing.json'
 file_nm = os.path.join(os.path.abspath(os.curdir), file_nm)
 dump_json(file_nm)
 

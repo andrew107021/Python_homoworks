@@ -1,5 +1,3 @@
-# import json
-# import os
 import csv
 import logger
 import data_manager
@@ -37,11 +35,11 @@ def csv_exp(out_file: str) -> str:
                 print(*i)
                 spam_writer1.writerow(i)
     else:
-        logger.logger('Export error: empty storage')
-        return 'Empty storage'
+        logger.logger(f'{__name__}: Export error: empty storage')
+        return f'Error: Empty storage'
 
-    logger.logger(f'Storage dumped to {out_file}')
-    return f'Storage dumped to {out_file}'
+    logger.logger(f'{__name__}: Storage dumped to {out_file}')
+    return f'{__name__}: Storage dumped to {out_file}'
 
 
 def txt_exp(out_file):
@@ -50,25 +48,33 @@ def txt_exp(out_file):
         with open(out_file, 'w', newline='', encoding='utf-8') as out_fl:
             out_fl.write('{:<22} {:<20} {:<15} {:<22} {:<30} {}\n'.format(*HEADLINE))
             for i in rec_printer(storage):
-                print(i)
                 if isinstance(i, tuple):
                     line = f'{i[0]:<22} {i[1]:<20} {i[2]:<15} {i[3]:<22} {i[4]:<30} {i[5]}\n'
+                    print(line)
                     out_fl.write(line)
                 elif isinstance(i, str):
+                    print(i)
                     out_fl.write(i + '\n')
     else:
-        logger.logger('Export error: empty storage')
-        return 'Empty storage'
+        logger.logger(f'{__name__}: Export error: empty storage')
+        return 'Error: Empty storage'
 
-    logger.logger(f'Storage dumped to {out_file}')
+    logger.logger(f'{__name__}Storage dumped to {out_file}')
     return f'Storage dumped to {out_file}'
 
 
 def exporter(file_nm, file_type):
+    if file_nm == '':
+        logger.logger(f'{__name__}: File name error.')
+        return 'File name error.'
     if file_type == 'csv':
-        csv_exp(file_nm)
-    if file_type == 'txt':
-        txt_exp(file_nm)
+        response = csv_exp(file_nm)
+    elif file_type == 'txt':
+        response = txt_exp(file_nm)
+    else:
+        response = 'Unknown format.'
+        logger.logger(f'{__name__}: Error {response}')
+    return response
 
 
 if __name__ == '__main__':
