@@ -8,7 +8,7 @@ short_rules = \
 '''
 
 AMT_MAX = 28
-DEFAULT_CANDIES = 112
+DEFAULT_CANDIES = 2021
 candies = 0
 
 
